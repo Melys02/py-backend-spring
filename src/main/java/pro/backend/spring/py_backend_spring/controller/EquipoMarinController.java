@@ -44,8 +44,33 @@ public class EquipoMarinController {
 
             return new ResponseEntity<>(respuestaError, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+
     }
 
+    @GetMapping("/buscarPorEstado/{estado}")
+    public ResponseEntity<GenericResponseDto<List<EquipoMarinoDto>>> buscarPorEstado(@PathVariable String estado) {
+        try {
+            List<EquipoMarinoDto> equipos = equipoMarinoService.buscarPorEstado(estado);
 
+            // Construir la respuesta con éxito
+            GenericResponseDto<List<EquipoMarinoDto>> respuesta = GenericResponseDto.<List<EquipoMarinoDto>>builder()
+                    .correcto(true)
+                    .mensaje("Consulta exitosa")
+                    .respuesta(equipos)
+                    .build();
 
+            return new ResponseEntity<>(respuesta, HttpStatus.OK);
+
+        } catch (Exception e) {
+            // Manejar excepciones y devolver una respuesta con error
+            GenericResponseDto<List<EquipoMarinoDto>> respuestaError = GenericResponseDto.<List<EquipoMarinoDto>>builder()
+                    .correcto(false)
+                    .mensaje("Error al realizar la consulta")
+                    .codigoError("500")
+                    .build();
+
+            return new ResponseEntity<>(respuestaError, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
