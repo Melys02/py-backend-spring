@@ -14,12 +14,17 @@ public class EquipoMarinoConvert {
     }
 
 
-    public EquipoMarino convertirEquipoMarinoDtoAEquipoMarino(EquipoMarinoDto equipoMarinoDto) {
-        EquipoMarino equipoMarino = new EquipoMarino();
-        equipoMarino.setNombre(equipoMarinoDto.getNombre());
-        equipoMarino.setTipo(equipoMarinoDto.getTipo());
-        equipoMarino.setPrecio(equipoMarinoDto.getPrecio());
-        return equipoMarino;
+    public EquipoMarinoDto convertirEquipoMarinoAEquipoMarinoDto(EquipoMarinoDto equipoMarino) {
+        return EquipoMarinoDto.builder()
+                .id_equipo(equipoMarino.getId_equipo()) // Asumiendo que el campo id_equipo también existe en EquipoMarino
+                .nombre(equipoMarino.getNombre())
+                .tipo(equipoMarino.getTipo())
+                .fabricante(equipoMarino.getFabricante())
+                .precio(equipoMarino.getPrecio())
+                .estado(equipoMarino.getEstado())
+                .build();
     }
+
+
 
 }

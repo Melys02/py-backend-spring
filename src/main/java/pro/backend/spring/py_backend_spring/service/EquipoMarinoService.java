@@ -22,10 +22,14 @@ public class EquipoMarinoService implements IEquipoMarinoService {
 
 
     @Override
-   public List<EquipoMarinoDto> buscarPorTipo(String tipo) {
-        return List.of();
-
+    public List<EquipoMarinoDto> buscarPorTipo(String tipo) {
+        List<EquipoMarinoDto> equipoMarinoDtos = new ArrayList<>();
+        for (EquipoMarinoDto equipoMarino : equipoMarinoRepository.buscarPorTipo(tipo)) {
+            equipoMarinoDtos.add(equipoMarinoConvert.convertirEquipoMarinoAEquipoMarinoDto(equipoMarino)); // Asegúrate de usar este método
+        }
+        return equipoMarinoDtos;
     }
+
 
     @Override
     public List<EquipoMarinoDto> buscarPorEstado(String estado) {
