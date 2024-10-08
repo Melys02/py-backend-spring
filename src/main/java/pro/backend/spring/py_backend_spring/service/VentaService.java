@@ -1,5 +1,6 @@
 package pro.backend.spring.py_backend_spring.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pro.backend.spring.py_backend_spring.dto.VentaDto;
@@ -8,6 +9,7 @@ import pro.backend.spring.py_backend_spring.repository.VentaRepository;
 import pro.backend.spring.py_backend_spring.service.impl.IVentasService;
 import pro.backend.spring.py_backend_spring.util.VentaConvert;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +37,10 @@ public class VentaService implements IVentasService {
             ventaDtos.add(ventaConvert.convertirVentaAVentaDto(venta));
         }
         return ventaDtos;
+    }
+
+    @Transactional
+    public void actualizarMontoTotal(Long idVenta, BigDecimal nuevoMonto) {
+        ventaRepository.actualizarMontoTotal(nuevoMonto, idVenta);
     }
 }
