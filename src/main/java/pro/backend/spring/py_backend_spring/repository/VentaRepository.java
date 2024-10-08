@@ -17,7 +17,7 @@ public interface VentaRepository extends JpaRepository<Venta, String> {
     List<Venta> buscarPorCliente(@Param("idCliente") Long idCliente);
 
     @Query("SELECT v FROM Venta v WHERE v.fechaVenta BETWEEN :fechaInicio AND :fechaFin")
-    List<Venta> buscarPorRangoDeFechas(@Param("fechaInicio") LocalDate fechaInicio, @Param("fechaFin") LocalDate fechaFin);
+    List<Venta> buscarPorRangoDeFechas(@Param("fechaInicio") LocalDate fechaInicio);
 
 
 }

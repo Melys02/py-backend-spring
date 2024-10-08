@@ -16,7 +16,7 @@ public class EquipoMarinoConvert {
 
     public EquipoMarinoDto convertirEquipoMarinoAEquipoMarinoDto(EquipoMarinoDto equipoMarino) {
         return EquipoMarinoDto.builder()
-                .id_equipo(equipoMarino.getId_equipo()) // Asumiendo que el campo id_equipo también existe en EquipoMarino
+                .id_equipo(equipoMarino.getId_equipo()) // Cambia a equipoMarino
                 .nombre(equipoMarino.getNombre())
                 .tipo(equipoMarino.getTipo())
                 .fabricante(equipoMarino.getFabricante())
@@ -24,6 +24,7 @@ public class EquipoMarinoConvert {
                 .estado(equipoMarino.getEstado())
                 .build();
     }
+
 
 
 

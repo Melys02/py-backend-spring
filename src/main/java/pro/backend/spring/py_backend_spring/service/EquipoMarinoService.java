@@ -33,16 +33,28 @@ public class EquipoMarinoService implements IEquipoMarinoService {
 
     @Override
     public List<EquipoMarinoDto> buscarPorEstado(String estado) {
-        return List.of();
+        List<EquipoMarinoDto> equipoMarinoDtos = new ArrayList<>();
+        for (EquipoMarinoDto equipoMarino : equipoMarinoRepository.buscarPorEstado(estado)) {
+            equipoMarinoDtos.add(equipoMarinoConvert.convertirEquipoMarinoAEquipoMarinoDto(equipoMarino)); // Asegúrate de usar este método
+        }
+        return equipoMarinoDtos;
     }
 
     @Override
     public List<EquipoMarinoDto> buscarPorFabricante(String fabricante) {
-        return List.of();
+        List<EquipoMarinoDto> equipoMarinoDtos = new ArrayList<>();
+        for (EquipoMarinoDto equipoMarino : equipoMarinoRepository.buscarPorFabricante(fabricante)) {
+            equipoMarinoDtos.add(equipoMarinoConvert.convertirEquipoMarinoAEquipoMarinoDto(equipoMarino)); // Asegúrate de usar este método
+        }
+        return equipoMarinoDtos;
     }
 
     @Override
     public List<EquipoMarinoDto> buscarPorPrecioMayorA(BigDecimal precio) {
-        return List.of();
+        List<EquipoMarinoDto> equipoMarinoDtos = new ArrayList<>();
+        for (EquipoMarinoDto equipoMarino : equipoMarinoRepository.buscarPorPrecioMayorA(precio)) {
+            equipoMarinoDtos.add(equipoMarinoConvert.convertirEquipoMarinoAEquipoMarinoDto(equipoMarino)); // Asegúrate de usar este método
+        }
+        return equipoMarinoDtos;
     }
 }
