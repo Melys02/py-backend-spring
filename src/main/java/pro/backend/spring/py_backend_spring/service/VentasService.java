@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pro.backend.spring.py_backend_spring.dto.VentaDto;
+import pro.backend.spring.py_backend_spring.model.Cliente;
+import pro.backend.spring.py_backend_spring.model.EquipoMarino;
 import pro.backend.spring.py_backend_spring.model.Venta;
 import pro.backend.spring.py_backend_spring.repository.VentaRepository;
 import pro.backend.spring.py_backend_spring.service.impl.IVentasService;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class VentaService implements IVentasService {
+public class VentasService implements IVentasService {
 
     private final VentaRepository ventaRepository;
     private final VentaConvert ventaConvert;
@@ -39,8 +41,23 @@ public class VentaService implements IVentasService {
         return ventaDtos;
     }
 
-    @Transactional
-    public void actualizarMontoTotal(Long idVenta, BigDecimal nuevoMonto) {
-        ventaRepository.actualizarMontoTotal(nuevoMonto, idVenta);
+    @Override
+    public void actualizarMontoTotal(BigDecimal montoTotal, Long idVenta) {
+        ventaRepository.actualizarMontoTotal(montoTotal, idVenta);
+
     }
+
+    @Override
+    public void registrarVenta(EquipoMarino equipoMarino, Cliente cliente, LocalDate fechaVenta, BigDecimal montoTotal) {
+        ventaRepository.registrarVenta(equipoMarino, cliente, fechaVenta, montoTotal);
+
+    }
+
+    @Override
+    public void actualizarClienteVenta(Long idVenta, Cliente cliente) {
+        ventaRepository.actualizarClienteVenta(idVenta, cliente);
+
+    }
+
+
 }

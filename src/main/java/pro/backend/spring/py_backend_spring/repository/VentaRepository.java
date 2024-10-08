@@ -40,5 +40,10 @@ public interface VentaRepository extends JpaRepository<Venta, String> {
             @Param("fechaVenta") LocalDate fechaVenta,
             @Param("montoTotal") BigDecimal montoTotal);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Venta v SET v.cliente = :cliente WHERE v.idVenta = :idVenta")
+    void actualizarClienteVenta(@Param("idVenta") Long idVenta, @Param("cliente") Cliente cliente);
+
 }
 

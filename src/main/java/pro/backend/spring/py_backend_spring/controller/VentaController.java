@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.backend.spring.py_backend_spring.dto.GenericResponseDto;
 import pro.backend.spring.py_backend_spring.dto.VentaDto;
+import pro.backend.spring.py_backend_spring.model.Cliente;
+import pro.backend.spring.py_backend_spring.repository.VentaRepository;
 import pro.backend.spring.py_backend_spring.service.impl.IVentasService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -73,4 +73,36 @@ public class VentaController {
             return new ResponseEntity<>(respuestaError, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<String> registrarNuevaVenta(@RequestBody VentaDto ventaDto) {
+        try {
+            ventasService.registrarVenta(ventaDto.getEquipoMarino(), ventaDto.getCliente(), ventaDto.getFechaVenta(), ventaDto.getMontoTotal());
+            return ResponseEntity.ok("Venta registrada correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al registrar la venta.");
+        }
+    }
+
+    @PutMapping("/actualizarMontoTotal/{idVenta}")
+    public ResponseEntity<String> actualizarMontoTotal(@PathVariable Long idVenta, @RequestParam BigDecimal nuevoMontoTotal) {
+        try {
+            ventasService.actualizarMontoTotal(nuevoMontoTotal, idVenta);
+            return ResponseEntity.ok("Monto total actualizado correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al actualizar el monto total.");
+        }
+    }
+
+    @PutMapping("/actualizarCliente/{idVenta}")
+    public ResponseEntity<String> actualizarCliente(@PathVariable Long idVenta, @RequestBody Cliente nuevoCliente) {
+        try {
+            ventasService.actualizarClienteVenta(idVenta, nuevoCliente);
+            return ResponseEntity.ok("Cliente actualizado en la venta correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al actualizar el cliente en la venta.");
+        }
+    }
+
+
 }
